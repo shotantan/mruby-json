@@ -198,7 +198,9 @@ static mrb_value
 mrb_json_parse(mrb_state *mrb, mrb_value self)
 {
   mrb_value value;
-  JSON_Value *root_value;
+  JSON_Value *root_value = json_value_init_object();
+  char *serialized_string = NULL;
+  
   mrb_value json = mrb_nil_value();
   mrb_get_args(mrb, "S", &json);
 
@@ -208,6 +210,9 @@ mrb_json_parse(mrb_state *mrb, mrb_value self)
   }
 
   value = json_value_to_mrb_value(mrb, root_value);
+  serialized_string = json_serialize_to_string_pretty(root_value);
+  json_free_serialized_string(serialized_string);
+      
   json_value_free(root_value);
   return value;
 }

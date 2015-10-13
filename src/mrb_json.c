@@ -197,8 +197,8 @@ json_value_to_mrb_value(mrb_state* mrb, JSON_Value* value) {
 static mrb_value
 mrb_json_parse(mrb_state *mrb, mrb_value self)
 {
-  mrb_value value;
-  JSON_Value *root_value = json_value_init_object();
+  mrb_value value = mrb_nil_value();
+  JSON_Value *root_value;
   char *serialized_string = NULL;
   
   mrb_value json = mrb_nil_value();
